@@ -1,4 +1,4 @@
-package io.github.johardi.bmir;
+package io.github.johardi.bmir.problem1;
 
 import java.util.Set;
 

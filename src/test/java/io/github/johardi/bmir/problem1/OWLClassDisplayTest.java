@@ -1,9 +1,11 @@
-package io.github.johardi.bmir;
+package io.github.johardi.bmir.problem1;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import io.github.johardi.bmir.problem1.OWLClassDisplay;
+import io.github.johardi.bmir.problem1.OWLClassDisplayImpl;
 
 import java.util.Collections;
 import java.util.List;
