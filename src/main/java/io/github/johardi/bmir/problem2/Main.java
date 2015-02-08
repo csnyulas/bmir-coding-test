@@ -89,6 +89,10 @@ public class Main {
          OWLAxiom axiom = factory.getOWLAnnotationAssertionAxiom(cls.getIRI(), annotation);
          manager.applyChange(new AddAxiom(ont, axiom));
       }
+      saveOntology(ont, path);
+   }
+
+   private static void saveOntology(OWLOntology ont, String path) throws OWLException {
       File fout = new File(path);
       manager.saveOntology(ont, IRI.create(fout));
    }
