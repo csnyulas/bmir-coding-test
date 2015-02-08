@@ -5,6 +5,9 @@ import java.util.Set;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
+/**
+ * A helper class to present information about OWL class to WebProtege UI.
+ */
 public interface OWLClassDisplay extends Comparable<OWLClassDisplay> {
 
    /**
