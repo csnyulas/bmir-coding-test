@@ -96,7 +96,7 @@ public class Main {
    private static String toTitleCase(String s) {
       return StringUtils.join(
             StringUtils.splitByCharacterTypeCamelCase(s),
-            ' ').replaceAll("_+\\s?", "");
+            ' ').replaceAll("_+\\s?", ""); // remove underscores
    }
 
    private static void log(PrintStream stream, String message) {
