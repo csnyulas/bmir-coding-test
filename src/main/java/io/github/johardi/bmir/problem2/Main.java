@@ -26,7 +26,16 @@ import org.semanticweb.owlapi.vocab.SKOSVocabulary;
 public class Main {
 
    private static OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
+
    private static OWLDataFactory factory = manager.getOWLDataFactory();
+
+   // Defining rdfs:label annotation
+   private static OWLAnnotationProperty rdfsLabel =
+         factory.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI());
+
+   // Defining skos:prefLabel annotation
+   private static OWLAnnotationProperty skosPrefLabel =
+         factory.getOWLAnnotationProperty(SKOSVocabulary.PREFLABEL.getIRI());
 
    public static void main(String[] args) {
       try {
@@ -63,7 +72,6 @@ public class Main {
    }
 
    private static void printClassesInPortuguese(OWLOntology ont) {
-      OWLAnnotationProperty rdfsLabel = factory.getOWLAnnotationProperty(OWLRDFVocabulary.RDFS_LABEL.getIRI());
       for (OWLClass cls : ont.getClassesInSignature()) {
          // Get the annotations on the class that use the label property
          for (OWLAnnotation annotation : cls.getAnnotations(ont, rdfsLabel)) {
@@ -78,10 +86,9 @@ public class Main {
    }
 
    private static void createPrefLabelOntology(OWLOntology ont, String path) throws OWLOntologyStorageException, OWLOntologyCreationException {
-      OWLAnnotationProperty prefLabel = factory.getOWLAnnotationProperty(SKOSVocabulary.PREFLABEL.getIRI());
       for (OWLClass cls : ont.getClassesInSignature()) {
          String localName = XMLUtils.getNCNameSuffix(cls.toStringID());
-         OWLAnnotation annotation = factory.getOWLAnnotation(prefLabel,
+         OWLAnnotation annotation = factory.getOWLAnnotation(skosPrefLabel,
                factory.getOWLLiteral(toTitleCase(localName), "en"));
          OWLAxiom axiom = factory.getOWLAnnotationAssertionAxiom(cls.getIRI(), annotation);
          manager.applyChange(new AddAxiom(ont, axiom));
