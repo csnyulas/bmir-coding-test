@@ -73,11 +73,11 @@ public class Main {
 
    private static void printClassesInPortuguese(OWLOntology ont) {
       for (OWLClass cls : ont.getClassesInSignature()) {
-         // Get the annotations on the class that use the label property
+         // Find any rdfs:label annotation within the class
          for (OWLAnnotation annotation : cls.getAnnotations(ont, rdfsLabel)) {
             if (annotation.getValue() instanceof OWLLiteral) {
                OWLLiteral val = (OWLLiteral) annotation.getValue();
-               if (val.hasLang("pt")) {
+               if (val.hasLang("pt")) { // check for @pt language
                   log(System.out, format("%s \"%s\"", cls, val.getLiteral()));
                }
             }
