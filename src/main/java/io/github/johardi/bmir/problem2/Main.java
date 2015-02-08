@@ -15,11 +15,10 @@ import org.semanticweb.owlapi.model.OWLAnnotationProperty;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import org.semanticweb.owlapi.vocab.SKOSVocabulary;
 
@@ -58,15 +57,12 @@ public class Main {
          log(System.out, "Task 3: Create ontology with prefered labels.");
          createPrefLabelOntology(ont, "src/main/resources/out.owl");
       }
-      catch (OWLOntologyCreationException e) {
-         log(System.err, e.getMessage());
-      }
-      catch (OWLOntologyStorageException e) {
+      catch (OWLException e) {
          log(System.err, e.getMessage());
       }
    }
 
-   private static OWLOntology loadOntology(String path) throws OWLOntologyCreationException {
+   private static OWLOntology loadOntology(String path) throws OWLException {
       File fin = new File(path);
       return manager.loadOntologyFromOntologyDocument(fin);
    }
@@ -85,7 +81,7 @@ public class Main {
       }
    }
 
-   private static void createPrefLabelOntology(OWLOntology ont, String path) throws OWLOntologyStorageException, OWLOntologyCreationException {
+   private static void createPrefLabelOntology(OWLOntology ont, String path) throws OWLException {
       for (OWLClass cls : ont.getClassesInSignature()) {
          String localName = XMLUtils.getNCNameSuffix(cls.toStringID());
          OWLAnnotation annotation = factory.getOWLAnnotation(skosPrefLabel,
