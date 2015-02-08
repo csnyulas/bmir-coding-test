@@ -84,8 +84,8 @@ public class Main {
    private static void createPrefLabelOntology(OWLOntology ont, String path) throws OWLException {
       for (OWLClass cls : ont.getClassesInSignature()) {
          String localName = XMLUtils.getNCNameSuffix(cls.toStringID());
-         OWLAnnotation annotation = factory.getOWLAnnotation(skosPrefLabel,
-               factory.getOWLLiteral(toTitleCase(localName), "en"));
+         OWLLiteral value = factory.getOWLLiteral(toTitleCase(localName), "en");
+         OWLAnnotation annotation = factory.getOWLAnnotation(skosPrefLabel, value);
          OWLAxiom axiom = factory.getOWLAnnotationAssertionAxiom(cls.getIRI(), annotation);
          manager.applyChange(new AddAxiom(ont, axiom));
       }
