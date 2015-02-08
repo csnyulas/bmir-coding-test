@@ -3,6 +3,7 @@ package io.github.johardi.bmir.problem2;
 import static java.lang.String.format;
 
 import java.io.File;
+import java.io.PrintStream;
 
 import org.apache.commons.lang3.StringUtils;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -46,10 +47,10 @@ public class Main {
          createPrefLabelOntology(ont, "src/main/resources/out.owl");
       }
       catch (OWLOntologyCreationException e) {
-         err(e.getMessage());
+         log(System.err, e.getMessage());
       }
       catch (OWLOntologyStorageException e) {
-         err(e.getMessage());
+         log(System.err, e.getMessage());
       }
    }
 
@@ -66,7 +67,7 @@ public class Main {
             if (annotation.getValue() instanceof OWLLiteral) {
                OWLLiteral val = (OWLLiteral) annotation.getValue();
                if (val.hasLang("pt")) {
-                  out(format("%s \"%s\"", cls, val.getLiteral()));
+                  log(System.out, format("%s \"%s\"", cls, val.getLiteral()));
                }
             }
          }
@@ -92,11 +93,7 @@ public class Main {
             ' ').replaceAll("_+\\s?", "");
    }
 
-   private static void out(String message) {
-      System.out.println(message);
-   }
-
-   private static void err(String message) {
-      System.err.println(message);
+   private static void log(PrintStream stream, String message) {
+      stream.println(message);
    }
 }
