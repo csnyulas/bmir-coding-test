@@ -25,7 +25,7 @@ format: `<IRI> "label"`
 3. Construct new labels (use skos:prefLabel) using class IRI local name. And
 then add these labels to the ontology and save it as `out.owl`
 
-#### Compile and run
+#### Run
 ```
 $ mvn exec:java -Dexec.mainClass="io.github.johardi.bmir.problem2.Main" -q
 ```
