@@ -42,7 +42,8 @@ public class Main {
           * Load ontology from a file
           */
          log(System.out, "Task 1: Load ontology from a file.");
-         OWLOntology ont = loadOntology("src/main/resources/input.owl");
+         File fin = new File("src/main/resources/input.owl");
+         OWLOntology ont = loadOntology(fin);
          
          /*
           * Print out the list of classes along with any rdfs:labels that is written in the Portuguese.
@@ -55,15 +56,15 @@ public class Main {
           * from its IRI
           */
          log(System.out, "Task 3: Create ontology with prefered labels.");
-         createPrefLabelOntology(ont, "src/main/resources/out.owl");
+         File fout = new File("src/main/resources/out.owl");
+         createPrefLabelOntology(ont, fout);
       }
       catch (OWLException e) {
          log(System.err, e.getMessage());
       }
    }
 
-   private static OWLOntology loadOntology(String path) throws OWLException {
-      File fin = new File(path);
+   private static OWLOntology loadOntology(File fin) throws OWLException {
       return manager.loadOntologyFromOntologyDocument(fin);
    }
 
@@ -81,7 +82,7 @@ public class Main {
       }
    }
 
-   private static void createPrefLabelOntology(OWLOntology ont, String path) throws OWLException {
+   private static void createPrefLabelOntology(OWLOntology ont, File fout) throws OWLException {
       for (OWLClass cls : ont.getClassesInSignature()) {
          String localName = XMLUtils.getNCNameSuffix(cls.toStringID());
          OWLLiteral value = factory.getOWLLiteral(toTitleCase(localName), "en");
@@ -89,11 +90,10 @@ public class Main {
          OWLAxiom axiom = factory.getOWLAnnotationAssertionAxiom(cls.getIRI(), annotation);
          manager.applyChange(new AddAxiom(ont, axiom));
       }
-      saveOntology(ont, path);
+      saveOntology(ont, fout);
    }
 
-   private static void saveOntology(OWLOntology ont, String path) throws OWLException {
-      File fout = new File(path);
+   private static void saveOntology(OWLOntology ont, File fout) throws OWLException {
       manager.saveOntology(ont, IRI.create(fout));
    }
 
