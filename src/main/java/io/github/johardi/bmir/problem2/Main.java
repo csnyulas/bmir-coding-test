@@ -33,17 +33,20 @@ public class Main {
          /*
           * Load ontology from a file
           */
+         log(System.out, "Task 1: Load ontology from a file.");
          OWLOntology ont = loadOntology("src/main/resources/input.owl");
          
          /*
           * Print out the list of classes along with any rdfs:labels that is written in the Portuguese.
           */
+         log(System.out, "Task 2: Print out classes in Portuguese label.");
          printClassesInPortuguese(ont);
          
          /*
           * Generate and add to a new ontology new labels for each class (using skos:prefLabel)
           * from its IRI
           */
+         log(System.out, "Task 3: Create ontology with prefered labels.");
          createPrefLabelOntology(ont, "src/main/resources/out.owl");
       }
       catch (OWLOntologyCreationException e) {
